@@ -28,10 +28,9 @@ on_failure:
 
 environment:
   global:
-    R_CHECK_ARGS: "--no-manual --as-cran --run-donttest"
-    R_ARCH: x64
+    # R_CHECK_ARGS: "--no-manual --as-cran --run-donttest"
+    # R_ARCH: x64
     WARNINGS_ARE_ERRORS: 1
-    PKGTYPE: source
 
   matrix:
     - R_VERSION: release
