@@ -20,6 +20,11 @@ r:
   - release
   - devel
 
+matrix:
+  include:
+  - os: linux
+  - os: osx
+
 addons:
   apt:
     sources:
