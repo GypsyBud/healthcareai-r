@@ -3,8 +3,6 @@ warnings_are_errors: true
 notifications:
   email:
     recipients:
-      - ethan.taft@healthcatalyst.com
-      - yannick.vanhuele@healthcatalyst.com
       - michael.mastanduno@healthcatalyst.com
       - levi.thatcher@healthcatalyst.com
       - taylor.larsen@healthcatalyst.com
