@@ -14,6 +14,7 @@ install:
 # Adapt as necessary starting from here
 services:
   - mssql2012sp1
+  - ps: iex .\inst\CIDatabase\CIBuild_DBCreate.ps1
 
 build_script:
   - travis-tool.sh install_deps
@@ -24,6 +25,25 @@ test_script:
 on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
+
+environment:
+  global:
+    R_CHECK_ARGS: "--no-manual --as-cran --run-donttest"
+    R_ARCH: x64
+    WARNINGS_ARE_ERRORS: 1
+
+  matrix:
+    - R_VERSION: release
+      R_ARCH: x64
+    
+    - R_VERSION: devel
+      R_ARCH: x64
+
+    - R_VERSION: release
+      R_ARCH: i386
+    
+    - R_VERSION: devel
+      R_ARCH: i386
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
@@ -43,36 +63,6 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
-
-# build_script:
-#   - ps: iex .\inst\CIDatabase\CIBuild_DBCreate.ps1
-#   - travis-tool.sh install_deps
-
-# test_script:
-#   - travis-tool.sh run_tests
-
-# on_failure:
-#   - 7z a failure.zip *.Rcheck\*
-#   - appveyor PushArtifact failure.zip
-
-# environment:
-#   global:
-#     R_CHECK_ARGS: "--no-manual --as-cran --run-donttest"
-#     R_ARCH: x64
-#     WARNINGS_ARE_ERRORS: 1
-
-#   matrix:
-#     - R_VERSION: release
-#       R_ARCH: x64
-    
-#     - R_VERSION: devel
-#       R_ARCH: x64
-
-#     - R_VERSION: release
-#       R_ARCH: i386
-    
-#     - R_VERSION: devel
-#       R_ARCH: i386
 
 #---------------------------------#
 #  notifications configuration    #
