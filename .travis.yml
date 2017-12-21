@@ -28,12 +28,7 @@ addons:
     # packages:
     #   - clang-format-3.9
 
-before_install: |
-  - mkdir ~/.R
-  - cat <<EOF > ~/.R/Makevars
-  - CXX1X=g++-4.9
-  - CXX1XSTD=-std=c++11
-# before_install: travis/check_format.sh
+before_install:  Rscript -e 'update.packages(ask = FALSE)'
 
 after_success:
   - Rscript -e 'covr::codecov()'
