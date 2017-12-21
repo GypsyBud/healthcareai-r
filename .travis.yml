@@ -20,7 +20,10 @@ matrix:
     cache: packages
     dist: trusty
     sudo: false
-    r: release
+    r:
+    - oldrel
+    - release
+    - devel
     addons:
       apt:
         sources:
