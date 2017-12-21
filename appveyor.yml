@@ -16,7 +16,6 @@ services:
   - mssql2012sp1
 
 build_script:
-  - ps: iex .\inst\CIDatabase\CIBuild_DBCreate.ps1
   - travis-tool.sh install_deps
 
 test_script:
@@ -26,24 +25,54 @@ on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
 
-environment:
-  global:
-    R_CHECK_ARGS: "--no-manual --as-cran --run-donttest"
-    R_ARCH: x64
-    WARNINGS_ARE_ERRORS: 1
+artifacts:
+  - path: '*.Rcheck\**\*.log'
+    name: Logs
 
-  matrix:
-    - R_VERSION: release
-      R_ARCH: x64
-    
-    - R_VERSION: devel
-      R_ARCH: x64
+  - path: '*.Rcheck\**\*.out'
+    name: Logs
 
-    - R_VERSION: release
-      R_ARCH: i386
+  - path: '*.Rcheck\**\*.fail'
+    name: Logs
+
+  - path: '*.Rcheck\**\*.Rout'
+    name: Logs
+
+  - path: '\*_*.tar.gz'
+    name: Bits
+
+  - path: '\*_*.zip'
+    name: Bits
+
+# build_script:
+#   - ps: iex .\inst\CIDatabase\CIBuild_DBCreate.ps1
+#   - travis-tool.sh install_deps
+
+# test_script:
+#   - travis-tool.sh run_tests
+
+# on_failure:
+#   - 7z a failure.zip *.Rcheck\*
+#   - appveyor PushArtifact failure.zip
+
+# environment:
+#   global:
+#     R_CHECK_ARGS: "--no-manual --as-cran --run-donttest"
+#     R_ARCH: x64
+#     WARNINGS_ARE_ERRORS: 1
+
+#   matrix:
+#     - R_VERSION: release
+#       R_ARCH: x64
     
-    - R_VERSION: devel
-      R_ARCH: i386
+#     - R_VERSION: devel
+#       R_ARCH: x64
+
+#     - R_VERSION: release
+#       R_ARCH: i386
+    
+#     - R_VERSION: devel
+#       R_ARCH: i386
 
 #---------------------------------#
 #  notifications configuration    #
@@ -52,7 +81,7 @@ environment:
 notifications:
  - provider: Email
    to:
-     - healthcatalystslc+appveyor@mailbox.org
+     - michael.levy@healthcatalyst.com  # healthcatalystslc+appveyor@mailbox.org
    subject: 'r-appveyor build {{status}}'
-   on_build_success: false
+   on_build_success: true  # false
    on_build_failure: true
