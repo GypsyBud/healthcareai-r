@@ -16,14 +16,16 @@ notifications:
 language: r
 sudo: false
 cache: packages
-r:
-  - release
-  - devel
-
 matrix:
   include:
-  - os: linux
-  - os: osx
+    - os: linux
+      r: 
+      - release
+      - devel
+    - os: osx
+      r: 
+      - release
+      - devel
 
 addons:
   apt:
