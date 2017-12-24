@@ -74,3 +74,4 @@ notifications:
    subject: 'r-appveyor build {{status}}'
    on_build_success: true  # false
    on_build_failure: true
+   
