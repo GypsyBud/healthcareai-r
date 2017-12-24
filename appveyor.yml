@@ -15,11 +15,9 @@ install:
 services:
   - mssql2012sp1
 
-before_build:
-  - mkdir src
-
 build_script:
   - ps: iex .\inst\CIDatabase\CIBuild_DBCreate.ps1
+  - ps: mkdir src
   - travis-tool.sh install_deps
 
 test_script:
