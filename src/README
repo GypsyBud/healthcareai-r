@@ -1,0 +1,1 @@
+Add src to force AppVeyor to install rtools so packages can be built from source.

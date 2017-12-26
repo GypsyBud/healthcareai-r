@@ -17,7 +17,6 @@ services:
 
 build_script:
   - ps: iex .\inst\CIDatabase\CIBuild_DBCreate.ps1
-  - ps: mkdir src
   - travis-tool.sh install_deps
 
 test_script:
